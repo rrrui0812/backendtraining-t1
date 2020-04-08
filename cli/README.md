@@ -10,68 +10,92 @@
 
 - GUI vs CLI
 
+    GUI：圖形化介面，給一般民眾用的
+
+    CLI：命令列介面，給懂電腦的人用，通常只能透過鍵盤輸入指令操作，但若熟悉指令的話，操作速度會比圖形化介面快
+
 - terminal
+    終端機：可以讓使用者輸入指令的小視窗
 
 - shell
+ 
+    殼程式，負責傳達使用者輸入的指令，讓使用者能夠跟kernel溝通、命令他做事的應用程式。
+    廣義的shell也包括圖形化介面，因為圖形化介面也能讓使用者指揮系統做事，但狹義的shell指的就是我們平常輸入指令的文字介面。
     - bash
+    
+        歷史上出現過很多種的shell，包括Bourne shell(sh)、C shell、K shell等，而linux預設的shell，全名是Bourne Again Shell(sh的進化版)，是基於GNU的架構下發展出來的。   
     - zsh 
+    
+        是基於Bourne shell發展出的shell，同時加入了Bash、ksh及tcsh的某些功能，功能非常強大，包括可以裝一些套件讓使用者的terminal有漂亮的顏色和icon。
 
 ### 請解釋下方 CLI 的指令作用
     
-- `cat`
+- `cat` 列出檔案內容，或將多個檔案內容串接在一起輸出在terminal上或到某個檔案裡
 
-- `cd`
-    
-- `chgrp`
+- `cd` 切到xx路徑下
+
+- `chgrp` 更改檔案的擁有群組，可加上後面可加上-R(往目錄下的檔案遞迴)、擁有群組(必須存在於/etc/group中)、檔案名稱或 . (表示路徑下所有檔案)等參數 
+
+- `chown` 更改檔案的使用者，可加上-R、擁有者.擁有群組(擁有者必須存在於/etc/passwd中)、檔案
+
+- `chmod` 更改檔案的權限，可加上-R、權限的代表數字(SGID)、檔案
+
+- `cp` 複製A檔案內容到B檔案(會連檔案權限一起複製)
+
+- `curl` 透過指令，把指定的網路資源抓取下來，或上傳檔案到指定的網站
+
+- `less` 查看檔案內容
  
-- `chown`
+- `ls` 列出路徑下檔案與資料夾(非隱藏檔案)
 
-- `chmod`
+- `man` manual的簡寫，可以線上查詢指令的操作說明
+       例如：man less，可查詢less這個指令的使用方式
 
-- `cp`
-
-- `curl`
-
-- `grep`
-
-- `less`
-
-- `ls`
-
-- `man`
-
-- `mkdir`
+- `mkdir` 建立資料夾
     
-- `mv`
+- `mv` 將A檔案內容移到B檔案，或將檔案從A路徑下移到B路徑下
 
-- `|`
+- `grep` 根據關鍵字或正規表達式搜尋檔案或資料夾，可以加上-r表示遞迴搜尋目錄下的檔案，或加上-i表示不考慮大小寫
 
-- `pwd`
+- `|` Pipe，將前面的輸入作用於後面的輸出中
 
-- `rm`
+    例如：ls /etc/ | grep network就是篩選出在/etc/這個目錄下包含'network'這個關鍵字的檔案
 
-- `touch`
+- `pwd` 查看目前所在路徑
 
-- `vim`
+- `rm` 刪除檔案或資料夾
+
+- `touch` 建立檔案
+
+- `vim` 開啟vim編輯某檔案或建立檔案並編輯
+
+- (自己加的)Linux檔案的基本權限：owner/group/others和read/write/execute
+read(r)的分數是4; write(ｗ)是2;execute(x)是1 
+權限數字表示法：r+w+x
+例：777表示owner/group/others都擁有rwx權限;761表示owner/group/others分別擁有：rwx/rw-/--x的權限
 
 ### 請說明以下 Linux file system structure 
 
-- `/`
+- `/` 根目錄
 
-- `/bin`
+- `/bin` binary的簡寫，用來放置系統必備或常用的執行檔，例如：ls, mv, rm, mkdir, cat檔案內容通常和/usr/bin是一樣的(但我的/usr/bin內容多很多??)
 
-- `/etc`
+- `/etc` 法語的"et cetera"的縮寫，放置開機與系統和應用軟體的配置文件，例如linux啟動程式的參數、使用者的帳號密碼、系統的主要設定、http 架站的參數內容等，在這個目錄下做事一定要備份!!
 
-- `/home`
+- `/home` 系統預設的家目錄
 
-- `/lib`
+- `/lib` library的簡寫，放置系統編譯或執行kernel的時候會用到的函數庫
 
-- `/var`
+- `/var` 系統在工作時預設的工作目錄，例如這架主機使用者的登錄檔案資訊、尚未寄出的郵件存放地、接收的郵件放置處等等；
 
-- `/sbin`
+- `/sbin` 放置一些只有系統管理員可用或常用的程式，例如： fdisk, mke2fs, fsck, mkswap, mount
 
-- `/srv`
+- `/srv` 放置跟這個系統的伺服器有關的資料
 
-- `/tmp`
+-  (自己加的) `/src` 放置kernel原始碼
 
-- `/usr`
+- `/tmp` 讓一般使用者暫時存放檔案的地方，沒事要定時清空，也要避免把重要的檔案在這裡
+
+- `/usr` 放置系統系統指令、安裝的程式與套件，裡面有很多的子目錄
+
+- (自己加的) `/usr/bin` 放置一般使用者和系統管理員都可執行的程式
